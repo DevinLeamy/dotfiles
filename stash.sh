@@ -3,6 +3,7 @@
 # Fail on any error.
 set -e
 
+REPO="/Users/Devin/Desktop/Github/DevinLeamy/dotfiles"
 HOME="/Users/Devin"
 
 HAMMERSPOON="$HOME/.hammerspoon"
@@ -11,11 +12,11 @@ NVIM="$HOME/.config/nvim"
 ZSH="$HOME/.zshrc"
 TMUX="$HOME/.tmux.conf"
 
-HAMMERSPOON_SYM="$(pwd)/.hammerspoon"
-SKETCHYBAR_SYM="$(pwd)/sketchybar"
-NVIM_SYM="$(pwd)/nvim"
-ZSH_SYM="$(pwd)/.zshrc"
-TMUX_SYM="$(pwd)/.tmux.conf"
+HAMMERSPOON_SYM="$REPO/.hammerspoon"
+SKETCHYBAR_SYM="$REPO/sketchybar"
+NVIM_SYM="$REPO/nvim"
+ZSH_SYM="$REPO/.zshrc"
+TMUX_SYM="$REPO/.tmux.conf"
 
 # Remove the symlinks.
 unlink $HAMMERSPOON_SYM
