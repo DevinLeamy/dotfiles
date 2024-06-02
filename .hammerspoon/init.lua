@@ -4,8 +4,7 @@ require("keyboard.clipboard")
 require("keyboard.misc")
 require("macground")
 
-SUPER = "alt"
-
-hs.hotkey.bind({ SUPER, "shift" }, "R", function()
+hs.hotkey.bind({ "alt", "shift" }, 'r', function()
+    hs.alert.show("Reload Hammerspoon")
     hs.reload()
 end)
