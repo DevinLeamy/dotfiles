@@ -34,7 +34,7 @@ cp -r $TMUX $TMUX_SYM
 # Commit.
 git add .
 git commit -m "Update dotfiles"
-git push origin no_commit_spam
+git push origin main
 
 # Remove the directory contents.
 rm -rf $HAMMERSPOON_SYM
