@@ -1,3 +1,5 @@
+CODE_PATH = '/usr/local/bin/code'
+
 local function openNew(app)
     hs.execute("open -a " .. utils.quote(app) .. " -n")
 end
@@ -13,9 +15,13 @@ local function appBinding(key, app)
 end
 
 appBinding('a', "Arc")
-appBinding('e', "Visual Studio Code")
 appBinding('t', "Kali")
-appBinding('w', "Safari")
+appBinding('w', "Google Chrome")
+
+-- Open a new Visual Studio Code window.
+altShiftBinding('e', function()
+    hs.execute(CODE_PATH .. " -n")
+end)
 
 altShiftBinding('d', function()
     os.execute([[

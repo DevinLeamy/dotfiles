@@ -15,7 +15,7 @@ export ZSH=$HOME/.oh-my-zsh
 # ===============NON-PATH ENVIRONMENT VARIABLES===============
 export CR_PAT="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"
 export SENDGRID_API_KEY="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"
-export OPEN_AI_API_KEY="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"
+export OPENAI_API_KEY="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"
 export CARGO_REGISTRY_TOKEN="cios8X1zgf5TQffikyzbig061DDQm0kwdhD"
 export UNSPLASH_API_KEY="dDD4ek7ULqlw162m0TN8O-fSE9Hk-OffkuQg-1UdKw8"
 export SCRIPTS="$HOME/.scripts"
