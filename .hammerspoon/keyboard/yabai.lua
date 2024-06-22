@@ -139,7 +139,7 @@ superShiftCtrl("o", { "window --space next", "space --focus next" })
 -- Moving between displays.
 superShift("m", { { "display --focus next", "display --focus first" } })
 superShiftCtrl("m", { { "window --display next", "window --display prev" }, { "window --focus recent" } }) -- Move window across displays.
-superShiftCtrl("t", { { "window --toggle float" }, { "window --grid 4:4:1:1:2:2" } }) -- Toggle floating window.
+superShiftCtrl("t", { { "window --toggle float" }, { "window --grid 4:4:1:1:2:2" } })                      -- Toggle floating window.
 
 -- Move between spaces.
 -- TODO: Update these to stay local to each display.
@@ -181,6 +181,7 @@ local function yabaiConfig()
     yabaiIgnoreApp("SF Symbols beta")
     yabaiIgnoreApp("Hammerspoon")
     yabaiIgnoreApp("App Store")
+    yabaiIgnoreApp("Preview")
 end
 
 --- Restart yabai.

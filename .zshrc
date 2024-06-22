@@ -230,3 +230,10 @@ if [ -f '/Users/Devin/Desktop/google-cloud-sdk/completion.zsh.inc' ]; then . '/U
 # WarpDir (v1.7.0, appended on 2023-05-12 22:27:51 -0400) BEGIN
 [[ -f ~/.bash_wd ]] && source ~/.bash_wd
 # WarpDir (v1.7.0, appended on 2023-05-12 22:27:51 -0400) END
+
+# bun completions
+[ -s "/Users/Devin/.bun/_bun" ] && source "/Users/Devin/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
