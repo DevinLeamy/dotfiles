@@ -37,10 +37,13 @@ fish_add_path --path "/Users/Devin/.local/bin" # poetry
 
 # ===============ALIASES===============
 abbr --add s --position command nvim
+abbr --add vi --position command nvim
+abbr --add vim --position command nvim
+abbr --add cat --position command bat
 
 # ===============MISC===============
 set fish_greeting # suppress introduction message
-
+set BAT_STYLE "plain,header,grid"
 
 # ===============PROMPT===============
 # Based on: https://github.com/DeanPDX/fish-prompt/blob/master/fish_prompt.fish
