@@ -1,2 +1,5 @@
 [shell]
 program = '/opt/homebrew/bin/fish'
+
+[font]
+normal = { family = 'FiraCode Nerd Font', style = 'Regular' }
