@@ -4,35 +4,36 @@
 set -gx EDITOR nvim
 
 # Locations.
-set -gx HOME "/Users/Devin"
+set -gx HOME /Users/Devin
 set -gx DESKTOP "$HOME/Desktop"
 set -gx DOTFILES_GIT "$DESKTOP/Github/DevinLeamy/dotfiles"
-set -gx JAVA_HOME '/Users/Devin/Library/Java/JavaVirtualMachines/openjdk-18-1/Contents/Home'
+set -gx JAVA_HOME /Users/Devin/Library/Java/JavaVirtualMachines/openjdk-18-1/Contents/Home
 set -gx PYTHONPATH '/opt/homebrew/lib/python3.11/site-packages'
+set -gx PLAYGROUND /Users/Devin/workspace/playground
 
 # Files.
 set -gx FISHRC "$HOME/.config/fish/config.fish"
 
 # API keys.
 set -gx SENDGRID_API_KEY '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'
-set -gx OPENAI_API_KEY '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'
-set -gx UNSPLASH_API_KEY 'dDD4ek7ULqlw162m0TN8O-fSE9Hk-OffkuQg-1UdKw8'
+set -gx OPENAI_API_KEY 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
+set -gx UNSPLASH_API_KEY dDD4ek7ULqlw162m0TN8O-fSE9Hk-OffkuQg-1UdKw8
 
 # Other.
-set -gx SHELL '/opt/homebrew/bin/fish'
+set -gx SHELL /opt/homebrew/bin/fish
 
 # ===============PATH ENVIRONMENT VARIABLES===============
 fish_add_path --path "/Users/Devin/.cargo/bin"
-fish_add_path --path "/usr/local/opt/openssl/bin" # delete?
+fish_add_path --path /usr/local/opt/openssl/bin # delete?
 fish_add_path --path "/usr/local/opt/openssl@1.1/bin" # delete?
 fish_add_path --path "$HOME/.poetry/bin"
-fish_add_path --path "/opt/homebrew/bin"
+fish_add_path --path /opt/homebrew/bin
 fish_add_path --path "/opt/homebrew/opt/openjdk@11/bin"
 fish_add_path --path "/Users/Devin/.local/lua" # lua
-fish_add_path --path "/Users/Devin/Desktop/Github/OpenSource/aseprite/build/bin" # asesprite
+fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/aseprite/build/bin # asesprite
 fish_add_path --path "/Users/Devin/Library/Application Support/Coursier/bin" # coursier
 fish_add_path --path "/opt/homebrew/lib/python3.11/site-packages"
-fish_add_path --path "/Users/Devin/Desktop/Github/OpenSource/typst/target/release"
+fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/typst/target/release
 fish_add_path --path "/Users/Devin/.local/bin" # poetry
 
 # ===============ALIASES===============
@@ -60,7 +61,7 @@ function fish_prompt
         end
 
         function _is_git_repo
-            git rev-parse --is-inside-work-tree > /dev/null 2>&1
+            git rev-parse --is-inside-work-tree >/dev/null 2>&1
         end
 
         function _repo_branch_name
@@ -73,7 +74,7 @@ function fish_prompt
 
         function _repo_type
             if _is_git_repo
-                echo 'git'
+                echo git
             end
         end
     end
@@ -89,7 +90,7 @@ function fish_prompt
     set -l custom_pwd (echo -n $PWD | sed "s/^$home_escaped/~/" | sed 's/ /%20/g')
 
     set -l arrow "$green➜ "
-    if [ $USER = 'root' ]
+    if [ $USER = root ]
         set arrow "$red# "
     end
 
@@ -114,6 +115,32 @@ end
 # ===============FUNCTIONS===============
 function src
     source $FISHRC
+end
+
+function dots
+    set DIRECTORY $PWD
+
+    cd "$DOTFILES_GIT"
+    nvim "fish/config.fish"
+    source $FISHRC
+
+    cd $DIRECTORY
+end
+
+function r
+    set PROJECT $argv[1]
+    if test -d "$DESKTOP/Github/DevinLeamy/$PROJECT"
+        cd "$DESKTOP/Github/DevinLeamy/$PROJECT"
+        nvim
+    else if test -d "$DESKTOP/Github/OpenSource/$PROJECT"
+        cd "$DESKTOP/Github/OpenSource/$PROJECT"
+        nvim
+    else if test -d "$PLAYGROUND/$PROJECT"
+        cd "$PLAYGROUND/$PROJECT"
+        nvim
+    else
+        echo "Project \"$PROJECT\" not found."
+    end
 end
 
 # ===============POST===============
