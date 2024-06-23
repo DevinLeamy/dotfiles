@@ -15,7 +15,7 @@ local function appBinding(key, app)
 end
 
 appBinding('a', "Arc")
-appBinding('t', "Kali")
+appBinding('p', "Alacritty")
 appBinding('w', "Google Chrome")
 
 -- Open a new Visual Studio Code window.
