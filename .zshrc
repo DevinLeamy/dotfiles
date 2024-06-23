@@ -116,23 +116,11 @@ function co() {
   fi
 }
 
-# Run yarn and kill any active process, if there is one.
-function yyarn() {
-  PORT=$(yarn run start -n | grep -oe "[0-9][0-9][0-9][0-9]")
-  if [[ $PORT -ne "" ]] then
-    kport "$PORT"
-    yarn run start
-  fi
-}
-
 # Terminate all activity on a port
 function kport() {
   kill -9 `lsof -t -i:$1` 2> /dev/null
 }
 
-function window_cnt() {
-	yabai -m query --spaces --display | jq '.[-1]["index"]'
-}
 
 function quit() {
 	kill -9 $(yabai -m query --windows --window  | jq '.["pid"]')
@@ -189,33 +177,6 @@ function dot() {
 		echo "Options:\n- zsh\n- nvim\n- plugins\n- yabai\n- map\n- tmux\n- packer\n- hammer"
 	fi
 }
-
-function window_id() {
-  echo $(yabai -m query --windows --window last | jq '.id')
-}
-
-function window_ids() {
-  WINDOWS_JSON=$(yabai -m query --windows)
-}
-
-function toggle_icons() {
-  ENABLED=$(defaults read com.apple.finder CreateDesktop 2>/dev/null)
-
-  if [ -z "$ENABLED" ]; then
-      echo "Could not read the icons setting. Exiting."
-      exit 1
-  fi
-
-  # Toggle visibility
-  if [ "$ENABLED" = "0" ]; then
-      defaults write com.apple.finder CreateDesktop -bool true
-  else
-      defaults write com.apple.finder CreateDesktop -bool false
-  fi
-
-  killall Finder
-}
-
 
 # ===============POST===============
 
