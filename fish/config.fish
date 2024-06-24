@@ -13,6 +13,7 @@ set -gx PLAYGROUND /Users/Devin/workspace/playground
 
 # Files.
 set -gx FISHRC "$HOME/.config/fish/config.fish"
+set -gx HKW_FILE "$HOME/.config/hotkey_window/window_id.txt"
 
 # API keys.
 set -gx SENDGRID_API_KEY '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'

@@ -1,11 +1,13 @@
 require("../utils")
 cjson = require("cjson")
 
+yabai = {}
+
 YABAI_PATH = "/opt/homebrew/bin/yabai"
 SUPER = "alt"
 
 -- Send a single command to yabai.
-local function yabai(command)
+local function yabaiCommand(command)
 	return os.execute(YABAI_PATH .. " " .. command)
 end
 
@@ -23,12 +25,12 @@ local function yabaiCommands(commands)
 	for _, command in ipairs(commands) do
 		if type(command) == "string" then
 			-- Execute a single command.
-			yabai("-m " .. command)
+			yabaiCommand("-m " .. command)
 		else
 			-- Execute commands until one doesn't fail.
 			-- Equivalent to: <cmd1> || <cmd2> || <cmd3>
 			for _, option in ipairs(command) do
-				local _, _, exitcode = yabai("-m " .. option)
+				local _, _, exitcode = yabaiCommand("-m " .. option)
 				if exitcode == 0 then
 					break
 				end
@@ -70,7 +72,7 @@ local function toggleFullscreen()
 	for _, window in ipairs(windows) do
 		local id = math.floor(window["id"])
 		if window["space"] == activeSpace and window["has-fullscreen-zoom"] == isFullscreen then
-			yabai("-m window " .. id .. " --toggle zoom-fullscreen")
+			yabaiCommand("-m window " .. id .. " --toggle zoom-fullscreen")
 		end
 	end
 end
@@ -83,7 +85,7 @@ local function moveToSpace(direction)
 	local spaceIndex = assert(utils.indexOf(display["spaces"], math.floor(focusedSpace["index"])))
 	local newIndex = utils.modAdd(spaceIndex, direction == "left" and -1 or 1, utils.length(display["spaces"]))
 	local newSpaceId = math.floor(display["spaces"][newIndex])
-	yabai("-m space --focus " .. newSpaceId)
+	yabaiCommand("-m space --focus " .. newSpaceId)
 end
 
 -- Create a new space and navigate to it.
@@ -92,8 +94,8 @@ local function createSpace()
 	local spaces = utils.length(display["spaces"])
 	local lastSpaceIndex = display["spaces"][spaces]
 	local newSpaceIndex = math.floor(lastSpaceIndex + 1)
-	yabai("-m space --create")
-	yabai("-m space --focus " .. newSpaceIndex)
+	yabaiCommand("-m space --create")
+	yabaiCommand("-m space --focus " .. newSpaceIndex)
 end
 
 -- Destroy a space. When a space is destroyed, all windows in the space are moved onto the
@@ -112,12 +114,12 @@ local function destroySpace()
 	-- If the space being destroyed is the last space on the display, then
 	-- move everything onto the previous space.
 	local newIndex = math.floor(display["spaces"][spaceIndex == totalSpaces and spaceIndex - 1 or spaceIndex])
-	yabai("-m space --destroy")
+	yabaiCommand("-m space --destroy")
 	for _, windowId in ipairs(focusedSpace["windows"]) do
-		yabai("-m window " .. math.floor(windowId) .. " --space " .. newIndex)
+		yabaiCommand("-m window " .. math.floor(windowId) .. " --space " .. newIndex)
 	end
 
-	yabai("-m space --focus " .. newIndex)
+	yabaiCommand("-m space --focus " .. newIndex)
 end
 
 -- Resizing windows.
@@ -157,27 +159,27 @@ superShiftCtrl("n", destroySpace)
 
 local function yabaiIgnoreApp(name)
 	local regex = '"^' .. name .. '$"'
-	yabai("-m rule --add app=" .. regex .. " manage=off")
+	yabaiCommand("-m rule --add app=" .. regex .. " manage=off")
 end
 
 local function yabaiConfig()
-	yabai("-m config layout bsp")
-	yabai("-m config top_padding 3")
-	yabai("-m config bottom_padding 35")
-	yabai("-m config left_padding 3")
-	yabai("-m config right_padding 3")
-	yabai("-m config window_gap 5")
-	yabai("-m config mouse_follows_focus off")
-	yabai("-m config focus_follows_mouse off")
-	yabai("-m config window_opacity off")
-	yabai("-m config window_opacity_duration 0.0")
-	yabai("-m config window_shadow on")
-	yabai("-m config window_border off ")
-	yabai("-m config active_window_opacity 1.0")
-	yabai("-m config normal_window_opacity 0.90")
-	yabai("-m config split_ratio 0.50")
-	yabai("-m config auto_balance off")
-	yabai("-m config window_placement second_child")
+	yabaiCommand("-m config layout bsp")
+	yabaiCommand("-m config top_padding 3")
+	yabaiCommand("-m config bottom_padding 35")
+	yabaiCommand("-m config left_padding 3")
+	yabaiCommand("-m config right_padding 3")
+	yabaiCommand("-m config window_gap 5")
+	yabaiCommand("-m config mouse_follows_focus off")
+	yabaiCommand("-m config focus_follows_mouse off")
+	yabaiCommand("-m config window_opacity off")
+	yabaiCommand("-m config window_opacity_duration 0.0")
+	yabaiCommand("-m config window_shadow on")
+	yabaiCommand("-m config window_border off ")
+	yabaiCommand("-m config active_window_opacity 1.0")
+	yabaiCommand("-m config normal_window_opacity 0.90")
+	yabaiCommand("-m config split_ratio 0.50")
+	yabaiCommand("-m config auto_balance off")
+	yabaiCommand("-m config window_placement second_child")
 	-- Application to ignore.
 	yabaiIgnoreApp("System Settings")
 	yabaiIgnoreApp("Activity Monitor")
@@ -201,3 +203,6 @@ end)
 hs.hotkey.bind({ SUPER, "shift", "ctrl" }, "0", function()
 	yabaiConfig()
 end)
+
+yabai.query = yabaiQuery
+yabai.command = yabaiCommand
