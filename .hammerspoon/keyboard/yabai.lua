@@ -16,7 +16,10 @@ end
 local function yabaiQuery(type, query)
 	query = query and query or ""
 	local rawOutput = hs.execute(YABAI_PATH .. " " .. "-m query --" .. type .. " " .. query)
-	local json = cjson.decode(rawOutput)
+	local json = nil
+	pcall(function()
+		json = cjson.decode(rawOutput)
+	end)
 	return json
 end
 

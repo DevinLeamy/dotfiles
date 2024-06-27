@@ -79,8 +79,10 @@ end
 local function toggle()
 	-- Query for the focused window and space before doing anything else because
 	-- showing/hinding the hotkey window may change the focused space.
+	--
+	-- Note: focusedWindow will be nil if there is no focused window.
+	local focusedSpace = yabai.query("spaces", "--space")
 	local focusedWindow = yabai.query("windows", "--window")
-	local focusedSpace = math.floor(focusedWindow["space"])
 
 	local windowExists, windowId = exists()
 
@@ -94,7 +96,7 @@ local function toggle()
 		return
 	end
 
-	if focusedWindow["id"] == windowId then
+	if focusedSpace["is-visible"] and focusedWindow ~= nil and focusedWindow["id"] == windowId then
 		-- Hide the hotkey window.
 		yabai.command("-m window " .. windowId .. " --space 9")
 	else
@@ -104,7 +106,7 @@ local function toggle()
 		-- 2. Make it focused.
 		-- 3. Make it full screen.
 
-		yabai.command("-m window " .. windowId .. " --space " .. focusedSpace)
+		yabai.command("-m window " .. windowId .. " --space " .. math.floor(focusedSpace["index"]))
 		yabai.command("-m window " .. windowId .. " --focus")
 		yabai.command("-m window " .. windowId .. " --grid 1:1:0:0:1:1")
 	end
