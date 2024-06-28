@@ -96,7 +96,7 @@ local function toggle()
 		return
 	end
 
-	if focusedSpace["is-visible"] and focusedWindow ~= nil and focusedWindow["id"] == windowId then
+	if focusedWindow ~= nil and focusedWindow["id"] == windowId then
 		-- Hide the hotkey window.
 		yabai.command("-m window " .. windowId .. " --space 9")
 	else

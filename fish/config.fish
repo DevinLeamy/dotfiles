@@ -118,6 +118,10 @@ function src
     source $FISHRC
 end
 
+function home
+    cd $HOME
+end
+
 function dots
     set DIRECTORY $PWD
 
