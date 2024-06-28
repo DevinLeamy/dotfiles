@@ -15,11 +15,6 @@ set -gx PLAYGROUND /Users/Devin/workspace/playground
 set -gx FISHRC "$HOME/.config/fish/config.fish"
 set -gx HKW_FILE "$HOME/.config/hotkey_window/window_id.txt"
 
-# API keys.
-set -gx SENDGRID_API_KEY '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'
-set -gx OPENAI_API_KEY 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
-set -gx UNSPLASH_API_KEY dDD4ek7ULqlw162m0TN8O-fSE9Hk-OffkuQg-1UdKw8
-
 # Other.
 set -gx SHELL /opt/homebrew/bin/fish
 
