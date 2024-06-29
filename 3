@@ -121,7 +121,7 @@ function play
     cd $PLAYGROUND
 end
 
-# Edit dotfiles.
+# Edit dotfiles
 function dots
     set DIRECTORY $PWD
 
@@ -134,12 +134,7 @@ end
 
 # Save dotfiles.
 function stash_dots
-    set DIRECTORY $PWD
 
-    cd "$DOTFILES_GIT"
-    ./stash.sh
-
-    cd $DIRECTORY
 end
 
 
