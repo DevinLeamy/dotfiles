@@ -16,6 +16,8 @@ return {
             "typescript",
             "vim",
             "yaml",
+            "rust",
+            "c++",
         },
     },
 }
