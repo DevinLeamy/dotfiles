@@ -17,7 +17,7 @@ return {
             "vim",
             "yaml",
             "rust",
-            "c++",
+            "cpp",
         },
     },
 }
