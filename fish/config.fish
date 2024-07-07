@@ -142,20 +142,24 @@ function stash_dots
     cd $DIRECTORY
 end
 
-
+# r <name> [open]
+# open: Navigate to and open. 
 function r
     set PROJECT $argv[1]
+
     if test -d "$DESKTOP/Github/DevinLeamy/$PROJECT"
         cd "$DESKTOP/Github/DevinLeamy/$PROJECT"
-        nvim
     else if test -d "$DESKTOP/Github/OpenSource/$PROJECT"
         cd "$DESKTOP/Github/OpenSource/$PROJECT"
-        nvim
     else if test -d "$PLAYGROUND/$PROJECT"
         cd "$PLAYGROUND/$PROJECT"
-        nvim
     else
         echo "Project \"$PROJECT\" not found."
+        return 1
+    end
+
+    if test (count $argv) -eq 2; and test $argv[2] = open
+        nvim
     end
 end
 

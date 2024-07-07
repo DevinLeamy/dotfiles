@@ -18,6 +18,7 @@ return {
             "yaml",
             "rust",
             "cpp",
+            "svelte",
         },
     },
 }
