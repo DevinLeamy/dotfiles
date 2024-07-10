@@ -1,5 +1,10 @@
 # ===============PRE===============
 
+# secrets
+if test -f ~/.config/secrets/.secrets.fish
+    source ~/.config/secrets/.secrets.fish
+end
+
 # ===============NON-PATH ENVIRONMENT VARIABLES===============
 set -gx EDITOR nvim
 
@@ -109,6 +114,17 @@ function fish_prompt
 end
 
 # ===============FUNCTIONS===============
+# Edit secrets
+function secrets
+    set DIRECTORY $PWD
+
+    cd "$HOME/.config/secrets"
+    nvim ".secrets.fish"
+    source $FISHRC
+
+    cd $DIRECTORY
+end
+
 function src
     source $FISHRC
 end
