@@ -42,6 +42,28 @@ local function ctrlCommandBinding(key, fn)
 	hs.hotkey.bind({ "ctrl", "cmd" }, key, fn)
 end
 
+-- Execute a fish command inside of standard fish environment.
+local function fish(command)
+	local value, status = hs.execute("/opt/homebrew/bin/fish -c 'source ~/.config/fish/config.fish; " .. command .. "'")
+	return value, status
+end
+
+-- Trim whitespace.
+function trim(s)
+	return (s:gsub("^%s*(.-)%s*$", "%1"))
+end
+
+-- Read an environment variable.
+local function env(variable)
+	local value, status = fish("echo $" .. variable)
+
+	if status then
+		return trim(value)
+	else
+		return nil
+	end
+end
+
 utils.sleep = sleep
 utils.indexOf = indexOf
 utils.length = length
@@ -49,3 +71,4 @@ utils.modAdd = modAdd
 utils.quote = quote
 utils.altShiftBinding = altShiftBinding
 utils.ctrlCommandBinding = ctrlCommandBinding
+utils.env = env

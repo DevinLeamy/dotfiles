@@ -1,7 +1,10 @@
+require("../utils")
+
 LINKEDIN = "https://www.linkedin.com/in/devin-leamy-439b8a1b5/"
 GITHUB = "https://github.com/DevinLeamy"
 WEBSITE = "https://devinleamy.ca"
 BILLING_ADDRESS = "11 Linden St. Apt 1, Allston, Boston, MA, ZIP: 02134"
+VULTR_PASSWORD = utils.env("VULTR_PASSWORD")
 
 local ClipboardKeybinding = { "cmd", "shift" }
 
@@ -18,3 +21,4 @@ clipboardBinding("h", LINKEDIN, "Copied LinkedIn to clipboard")
 clipboardBinding("g", GITHUB, "Copied GitHub to clipboard")
 clipboardBinding("w", WEBSITE, "Copied Website to clipboard")
 clipboardBinding("b", BILLING_ADDRESS, "Copied Billing Address to clipboard")
+clipboardBinding("v", VULTR_PASSWORD, "Copied Vultr Password to clipboard")
