@@ -1,5 +1,8 @@
 [shell]
 program = '/opt/homebrew/bin/fish'
+args = ['-c tmux']
 
 [font]
 normal = { family = 'FiraCode Nerd Font', style = 'Regular' }
+
+
