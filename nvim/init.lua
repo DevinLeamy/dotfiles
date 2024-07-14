@@ -9,3 +9,9 @@ vim.api.nvim_create_autocmd("BufModifiedSet", {
     pattern = "*.rs",
     command = "silent! write",
 })
+
+-- Enable 'svelte-language-server'.
+require("lspconfig").svelte.setup({})
+
+-- Enable 'typescript-language-server'.
+require("lspconfig").tsserver.setup({})
