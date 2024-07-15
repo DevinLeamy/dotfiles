@@ -169,6 +169,8 @@ function r
         cd "$DESKTOP/Github/OpenSource/$PROJECT"
     else if test -d "$PLAYGROUND/$PROJECT"
         cd "$PLAYGROUND/$PROJECT"
+    else if test "$PROJECT" = os
+        cd "$DESKTOP/Github/OpenSource/"
     else
         echo "Project \"$PROJECT\" not found."
         return 1
@@ -186,8 +188,8 @@ set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
 
 # pnpm
-set -gx PNPM_HOME "/Users/Devin/Library/pnpm"
+set -gx PNPM_HOME /Users/Devin/Library/pnpm
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
