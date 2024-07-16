@@ -15,3 +15,6 @@ require("lspconfig").svelte.setup({})
 
 -- Enable 'typescript-language-server'.
 require("lspconfig").tsserver.setup({})
+
+-- Toggle comments with Ctrl+/.
+require("Comment").setup()
