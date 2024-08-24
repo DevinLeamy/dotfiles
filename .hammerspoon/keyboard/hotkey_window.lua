@@ -40,7 +40,7 @@ local function createHotkeyWindow()
 		return nil
 	end
 	windowPid = math.floor(windowPid)
-	print("Alacritty hotkey window pid: ", windowPid)
+	print("Kitty hotkey window pid: ", windowPid)
 
 	-- Find the winodw id of the new window and write it to the file.
 	local windows = yabai.query("windows")
