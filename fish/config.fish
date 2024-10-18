@@ -36,6 +36,8 @@ fish_add_path --path "/Users/Devin/Library/Application Support/Coursier/bin" # c
 fish_add_path --path "/opt/homebrew/lib/python3.11/site-packages"
 fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/typst/target/release
 fish_add_path --path "/Users/Devin/.local/bin" # poetry
+fish_add_path --path "/Users/Devin/.local/flutter/bin" # flutter
+fish_add_path --path "$HOME/.pub-cache/bin" # flutter packages
 
 # ===============ALIASES===============
 abbr --add s --position command nvim
@@ -137,6 +139,18 @@ function play
     cd $PLAYGROUND
 end
 
+function 4a
+    cd "$HOME/Desktop/School/4A"
+end
+
+function 4160
+    cd "$HOME/Desktop/School/4A/CSCI 4160/Assignments/"
+end
+
+function 2740
+    cd "/Users/Devin/Desktop/School/4A/CSCI 2740/A2"
+end
+
 # Edit dotfiles.
 function dots
     set DIRECTORY $PWD
@@ -179,6 +193,12 @@ function r
     if test (count $argv) -eq 2; and test $argv[2] = open
         nvim
     end
+end
+
+function gc
+    git add .
+    git commit -m $argv[1]
+    git push
 end
 
 # ===============POST===============
