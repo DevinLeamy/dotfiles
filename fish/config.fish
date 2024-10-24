@@ -135,6 +135,11 @@ function home
     cd $HOME
 end
 
+function os
+    cd "$HOME/Desktop/Github/OpenSource"
+end
+
+
 function play
     cd $PLAYGROUND
 end
