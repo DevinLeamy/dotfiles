@@ -17,6 +17,7 @@ appBinding("a", "Arc")
 appBinding("p", "Alacritty")
 appBinding("w", "Google Chrome")
 appBinding("u", "Kitty")
+appBinding("c", "Cursor")
 
 -- Open a new Visual Studio Code window.
 utils.altShiftBinding("e", function()
