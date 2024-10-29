@@ -156,6 +156,14 @@ function 2740
     cd "/Users/Devin/Desktop/School/4A/CSCI 2740/A2"
 end
 
+function school
+    sshpass -p "$CUHK_SSH_PASSWORD" ssh "s1155232564@$argv[1]"
+end
+
+function lab
+    sshpass -p "$VULTR_PASSWORD" ssh vultr
+end
+
 # Edit dotfiles.
 function dots
     set DIRECTORY $PWD
