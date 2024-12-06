@@ -152,6 +152,10 @@ function 4160
     cd "$HOME/Desktop/School/4A/CSCI 4160/Assignments/"
 end
 
+function 4480
+    cd "$HOME/Desktop/School/4A/CENG 4480"
+end
+
 function 2740
     cd "/Users/Devin/Desktop/School/4A/CSCI 2740/A2"
 end
@@ -162,6 +166,10 @@ end
 
 function lab
     sshpass -p "$VULTR_PASSWORD" ssh vultr
+end
+
+function pi
+    sshpass -p nicoanddevin ssh nicoanddevin@172.20.10.14
 end
 
 # Edit dotfiles.
