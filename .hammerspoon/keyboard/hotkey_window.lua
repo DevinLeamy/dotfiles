@@ -1,13 +1,41 @@
 require("keyboard.yabai")
 require("../utils")
 
-hotkey_window = {}
+HotkeyWindow = {
+	-- Name of the application being managed.
+	app = nil,
+	-- Function called after the hotkey window is created.
+	onCreate = nil,
+	-- Function called after the hotkey window is moved into view.
+	onShow = nil,
+	-- Hotkey window id file.
+	idFile = nil,
+	-- Use '-n' when creating a new window.
+	openNew = nil,
+	-- Opacity [0-1] of the created window.
+	opacity = nil
+}
 
-local HOTKEY_WINDOW_ID_FILE = "/Users/Devin/.config/hotkey_window/window_id.txt"
+HotkeyWindow.__index = HotkeyWindow
+
+-- Constructor
+function HotkeyWindow:new(app, options)
+	-- Create a new table for the instance
+	local window = setmetatable({}, HotkeyWindow)
+
+	window.app = app
+	window.openNew = options.openNew
+	window.onCreate = options.onCreate or function() end
+	window.onShow = options.onShow or function() end
+	window.idFile = "/Users/Devin/.config/hotkey_window/" .. app .. "_id.txt"
+	window.opacity = options.opacity or 1.0
+
+	return window
+end
 
 -- Check if a hotkey window has already been created.
-local function exists()
-	local file = io.open(HOTKEY_WINDOW_ID_FILE, "r")
+function HotkeyWindow:exists()
+	local file = io.open(self.idFile, "r")
 	if not file then
 		return false
 	end
@@ -28,19 +56,24 @@ local function exists()
 	return false
 end
 
-local function createHotkeyWindow()
+function HotkeyWindow:createHotkeyWindow()
 	-- Create a new Alacritty window and get its PID
-	hs.execute("open -a " .. utils.quote("Alacritty") .. " -n")
+	local args = ""
+	if self.openNew then args = "-n" end
+	hs.execute("open -a " .. utils.quote(self.app) .. " " .. args)
 
-	utils.sleep(1) -- wait for the application to launch
+	utils.sleep(2) -- wait for the application to launch
 
-	local windowPid = hs.execute('pgrep -n -f "Alacritty"')
+	-- Find the PID of the application. "<name>$" is done so that it doesn't match secondary
+	-- processes that have the <name> in the title.
+	local windowPid = hs.execute('pgrep -n -f ' .. utils.quote(self.app) .. "$")
+
 	if windowPid == nil then
 		print("Failed to get pid of hotkey window")
 		return nil
 	end
 	windowPid = math.floor(windowPid)
-	print("Kitty hotkey window pid: ", windowPid)
+	print(self.app .. " hotkey window pid: ", windowPid)
 
 	-- Find the winodw id of the new window and write it to the file.
 	local windows = yabai.query("windows")
@@ -52,6 +85,7 @@ local function createHotkeyWindow()
 		if pid == windowPid then
 			windowId = math.floor(window["id"])
 		end
+		print("WINDOW ID: " .. pid)
 	end
 
 	if windowId == nil then
@@ -59,7 +93,7 @@ local function createHotkeyWindow()
 		return nil
 	end
 
-	local file = io.open(HOTKEY_WINDOW_ID_FILE, "w")
+	local file = io.open(self.idFile, "w")
 	if not file then
 		print("Failed to write to hotkey window id file")
 		return nil
@@ -69,14 +103,17 @@ local function createHotkeyWindow()
 	file:close()
 
 	-- Make the window float (aka be unmanaged)
-	yabai.command("-m window " .. windowId .. " --opacity 0.9")
+	yabai.command("-m window " .. windowId .. " --opacity " .. self.opacity)
 	yabai.command("-m window " .. windowId .. " --toggle float")
 	yabai.command("-m window " .. windowId .. " --grid 1:1:0:0:1:1")
+
+	self.onCreate()
+	self.onShow()
 
 	return windowId
 end
 
-local function toggle()
+function HotkeyWindow:toggle()
 	-- Query for the focused window and space before doing anything else because
 	-- showing/hinding the hotkey window may change the focused space.
 	--
@@ -84,11 +121,11 @@ local function toggle()
 	local focusedSpace = yabai.query("spaces", "--space")
 	local focusedWindow = yabai.query("windows", "--window")
 
-	local windowExists, windowId = exists()
+	local windowExists, windowId = self:exists()
 
 	if not windowExists then
 		print("Creating new hotkey window")
-		windowId = createHotkeyWindow()
+		windowId = self:createHotkeyWindow()
 	end
 
 	if windowId == nil then
@@ -111,5 +148,3 @@ local function toggle()
 		yabai.command("-m window " .. windowId .. " --grid 1:1:0:0:1:1")
 	end
 end
-
-hotkey_window.toggle = toggle

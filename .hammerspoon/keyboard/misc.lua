@@ -34,6 +34,20 @@ utils.altShiftBinding("d", function()
 	hs.alert.show("Deployed https://devinleamy.ca")
 end)
 
+-- Hotkey Windows
+local alacritty = HotkeyWindow:new("Alacritty", {
+	openNew = true,
+	opacity = 0.9
+})
+local mochi = HotkeyWindow:new("Mochi", {
+	openNew = false,
+	opacity = 1.0
+})
+
 utils.ctrlCommandBinding("k", function()
-	hotkey_window.toggle()
+	alacritty:toggle()
+end)
+
+utils.ctrlCommandBinding("l", function()
+	mochi:toggle()
 end)
