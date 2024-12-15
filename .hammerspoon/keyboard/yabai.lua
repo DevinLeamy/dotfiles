@@ -3,19 +3,24 @@ cjson = require("cjson")
 
 yabai = {}
 
+-- Homebrew installed binary.
 YABAI_PATH = "/opt/homebrew/bin/yabai"
+
+-- Built-from-source binary.
+YABAI_LOCAL_PATH = "/Users/Devin/Desktop/Github/OpenSource/yabai"
+
 SUPER = "alt"
 
 -- Send a single command to yabai.
 local function yabaiCommand(command)
-	return os.execute(YABAI_PATH .. " " .. command)
+	return os.execute(YABAI_LOCAL_PATH .. " " .. command)
 end
 
 -- Yabai query. Returns the parsed JSON result of the query.
 -- type: ["windows", "displays", "spaces"]
 local function yabaiQuery(type, query)
 	query = query and query or ""
-	local rawOutput = hs.execute(YABAI_PATH .. " " .. "-m query --" .. type .. " " .. query)
+	local rawOutput = hs.execute(YABAI_LOCAL_PATH .. " " .. "-m query --" .. type .. " " .. query)
 	local json = nil
 	pcall(function()
 		json = cjson.decode(rawOutput)
@@ -192,6 +197,7 @@ local function yabaiConfig()
 	yabaiIgnoreApp("App Store")
 	yabaiIgnoreApp("Preview")
 	yabaiIgnoreApp("Font Book")
+	yabaiIgnoreApp("QuickTime Player")
 end
 
 --- Restart yabai.

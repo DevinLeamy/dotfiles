@@ -37,11 +37,13 @@ end)
 -- Hotkey Windows
 local alacritty = HotkeyWindow:new("Alacritty", {
 	openNew = true,
-	opacity = 0.9
+	opacity = 0.9,
+	query = "Alacritty",
 })
 local mochi = HotkeyWindow:new("Mochi", {
 	openNew = false,
-	opacity = 1.0
+	opacity = 1.0,
+	query = "Mochi$",
 })
 
 utils.ctrlCommandBinding("k", function()

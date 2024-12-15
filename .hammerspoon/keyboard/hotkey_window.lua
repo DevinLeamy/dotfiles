@@ -13,7 +13,9 @@ HotkeyWindow = {
 	-- Use '-n' when creating a new window.
 	openNew = nil,
 	-- Opacity [0-1] of the created window.
-	opacity = nil
+	opacity = nil,
+	-- Window processes query name (used in pgrep).
+	query = nil,
 }
 
 HotkeyWindow.__index = HotkeyWindow
@@ -29,6 +31,7 @@ function HotkeyWindow:new(app, options)
 	window.onShow = options.onShow or function() end
 	window.idFile = "/Users/Devin/.config/hotkey_window/" .. app .. "_id.txt"
 	window.opacity = options.opacity or 1.0
+	window.query = options.query
 
 	return window
 end
@@ -59,14 +62,16 @@ end
 function HotkeyWindow:createHotkeyWindow()
 	-- Create a new Alacritty window and get its PID
 	local args = ""
-	if self.openNew then args = "-n" end
+	if self.openNew then
+		args = "-n"
+	end
 	hs.execute("open -a " .. utils.quote(self.app) .. " " .. args)
 
 	utils.sleep(2) -- wait for the application to launch
 
 	-- Find the PID of the application. "<name>$" is done so that it doesn't match secondary
 	-- processes that have the <name> in the title.
-	local windowPid = hs.execute('pgrep -n -f ' .. utils.quote(self.app) .. "$")
+	local windowPid = hs.execute("pgrep -n -f " .. utils.quote(self.query))
 
 	if windowPid == nil then
 		print("Failed to get pid of hotkey window")
