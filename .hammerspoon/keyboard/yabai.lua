@@ -203,8 +203,8 @@ end
 --- Restart yabai.
 hs.hotkey.bind({ SUPER, "shift", "ctrl" }, "P", function()
 	hs.alert.show("Restarting Yabai")
-	yabai("--stop-service")
-	yabai("--start-service")
+	yabaiCommand("--stop-service")
+	yabaiCommand("--start-service")
 end)
 
 -- Configure yabai. This is an alternative to using .yabairc
