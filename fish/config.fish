@@ -35,7 +35,7 @@ fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/aseprite/build/bin #
 fish_add_path --path "/Users/Devin/Library/Application Support/Coursier/bin" # coursier
 fish_add_path --path "/opt/homebrew/lib/python3.11/site-packages"
 fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/typst/target/release
-fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/yabai/bin
+# fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/yabai/bin
 fish_add_path --path "/Users/Devin/.local/bin" # poetry
 fish_add_path --path "/Users/Devin/.local/flutter/bin" # flutter
 fish_add_path --path "$HOME/.pub-cache/bin" # flutter packages
