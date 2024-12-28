@@ -35,11 +35,18 @@ utils.altShiftBinding("d", function()
 end)
 
 -- Hotkey Windows
-local ghostty = HotkeyWindow:new("Alacritty", {
+local alacritty = HotkeyWindow:new("Alacritty", {
 	openNew = false,
 	opacity = 0.9,
 	query = "Alacritty",
 })
+
+local ghostty = HotkeyWindow:new("Ghostty", {
+	openNew = false,
+	opacity = 0.9,
+	query = "Ghostty",
+})
+
 local mochi = HotkeyWindow:new("Mochi", {
 	openNew = false,
 	opacity = 1.0,
@@ -47,6 +54,10 @@ local mochi = HotkeyWindow:new("Mochi", {
 })
 
 utils.ctrlCommandBinding("k", function()
+	alacritty:toggle()
+end)
+
+utils.ctrlCommandBinding("j", function()
 	ghostty:toggle()
 end)
 

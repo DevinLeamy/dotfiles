@@ -61,7 +61,7 @@ function fish_prompt
         end
 
         function _is_git_dirty
-            echo (git status -s --ignore-submodules=dirty ^/dev/null)
+            echo (git status -s --ignore-submodules=dirty 2>/dev/null)
         end
 
         function _is_git_repo
