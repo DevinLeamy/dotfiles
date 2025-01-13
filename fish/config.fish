@@ -39,6 +39,7 @@ fish_add_path --path /Users/Devin/Desktop/Github/OpenSource/typst/target/release
 fish_add_path --path "/Users/Devin/.local/bin" # poetry
 fish_add_path --path "/Users/Devin/.local/flutter/bin" # flutter
 fish_add_path --path "$HOME/.pub-cache/bin" # flutter packages
+fish_add_path /opt/homebrew/opt/libpq/bin # postgres
 
 # ===============ALIASES===============
 abbr --add s --position command nvim
