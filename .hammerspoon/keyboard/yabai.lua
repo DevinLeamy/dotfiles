@@ -200,6 +200,10 @@ local function yabaiConfig()
 	yabaiIgnoreApp("Preview")
 	yabaiIgnoreApp("Font Book")
 	yabaiIgnoreApp("QuickTime Player")
+	yabaiIgnoreApp("Polyscope")
+	yabaiIgnoreApp("Open3D")
+	yabaiIgnoreApp("Python")
+	yabaiIgnoreApp("Python3")
 end
 
 --- Restart yabai.

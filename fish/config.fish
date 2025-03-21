@@ -15,6 +15,7 @@ set -gx DOTFILES_GIT "$DESKTOP/Github/DevinLeamy/dotfiles"
 set -gx JAVA_HOME /Users/Devin/Library/Java/JavaVirtualMachines/openjdk-18-1/Contents/Home
 set -gx PYTHONPATH '/opt/homebrew/lib/python3.11/site-packages'
 set -gx PLAYGROUND /Users/Devin/workspace/playground
+set -gx WORKSPACE /Users/Devin/workspace
 
 # Files.
 set -gx FISHRC "$HOME/.config/fish/config.fish"
@@ -204,6 +205,8 @@ function r
         cd "$DESKTOP/Github/DevinLeamy/$PROJECT"
     else if test -d "$DESKTOP/Github/OpenSource/$PROJECT"
         cd "$DESKTOP/Github/OpenSource/$PROJECT"
+    else if test -d "$WORKSPACE/$PROJECT"
+        cd "$WORKSPACE/$PROJECT"
     else if test -d "$PLAYGROUND/$PROJECT"
         cd "$PLAYGROUND/$PROJECT"
     else if test "$PROJECT" = os
